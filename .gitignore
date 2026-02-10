@@ -1,0 +1,19 @@
+# Python-specific
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.venv/
+venv/
+env/
+bin/
+lib/
+
+# OS-specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Project-specific
+gestion_empresas.py
