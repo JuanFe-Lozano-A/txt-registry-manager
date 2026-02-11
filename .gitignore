@@ -14,6 +14,3 @@ lib/
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Project-specific
-gestion_empresas.py
