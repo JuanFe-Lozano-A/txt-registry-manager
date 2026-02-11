@@ -118,6 +118,18 @@ class CompanyApp(tk.Tk):
         card_list = ttk.Frame(content_frame, style="Card.TFrame", padding=20)
         card_list.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
+        file_path_frame = ttk.Frame(card_list, style="White.TFrame")
+        file_path_frame.pack(fill=tk.X, pady=(0, 10))
+
+        ttk.Label(file_path_frame, text="📁 File Path:", style="Subtitle.TLabel").pack(anchor="w", pady=(0, 5))
+        
+        button_entry_frame = ttk.Frame(file_path_frame, style="White.TFrame")
+        button_entry_frame.pack(fill=tk.X)
+        ttk.Button(button_entry_frame, text="📤 Browse", command=self.open_file_dialog).pack(side=tk.LEFT, padx=(0, 5))
+        self.path_search = ttk.Entry(button_entry_frame)
+        self.path_search.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+        ttk.Button(button_entry_frame, text="✓ Import", command=self.load_file_from_path).pack(side=tk.LEFT, padx=(5, 0))
+
         search_frame = ttk.Frame(card_list, style="White.TFrame")
         search_frame.pack(fill=tk.X, pady=(0, 10))
         self.entr_search = ttk.Entry(search_frame)
@@ -165,6 +177,26 @@ class CompanyApp(tk.Tk):
         nit = str(self.tree.item(sel[0])['values'][0])
         self.manager.delete_company(nit)
         self.list_companies()
+
+    def open_file_dialog(self):
+        path = filedialog.askopenfilename(filetypes=[("JSON files", "*.json"), ("Text files", "*.txt"), ("CSV files", "*.csv")])
+        if path:
+            self.path_search.delete(0, tk.END)
+            self.path_search.insert(0, path)
+            try:
+                self.manager.load_from_file(path)
+                self.list_companies()
+            except Exception as e: messagebox.showerror("Error", str(e))
+    
+    def load_file_from_path(self):
+        # TODO: Implement manual path loading logic
+        path = self.path_search.get()
+        if path:
+            try:
+                self.manager.load_from_file(path)
+                self.list_companies()
+            except Exception as e:
+                messagebox.showerror("Error", f"Could not load: {e}")
 
     def list_companies(self, filter_text=""):
         for i in self.tree.get_children(): self.tree.delete(i)
