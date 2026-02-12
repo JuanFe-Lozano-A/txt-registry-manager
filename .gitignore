@@ -1,16 +1,25 @@
-# Python-specific
+# --- Python Specific ---
 __pycache__/
 *.py[cod]
 *$py.class
+*.egg-info/
+*.egg
+build/
+dist/
 
-# Environments
+# --- Environments ---
 .venv/
 venv/
 env/
 bin/
 lib/
 
-# OS-specific
+# --- OS Specific ---
 .DS_Store
 .AppleDouble
 .LSOverride
+
+# --- Project Specific Data ---
+*.txt
+*.json
+!README.md
