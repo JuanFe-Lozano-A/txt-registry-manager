@@ -22,4 +22,5 @@ lib/
 # --- Project Specific Data ---
 *.txt
 *.json
+*.csv
 !README.md

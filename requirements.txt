@@ -1,0 +1,19 @@
+# Company Management System v2.0
+
+A professional Python/Tkinter application for managing corporate records.
+
+## 🚀 Quick Start
+
+### 1. Prerequisites
+- Python 3.8 or higher
+- macOS/Linux/Windows
+
+### 2. Installation
+Clone the repository and set up the environment:
+```bash
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
+
+# Install the application in editable mode
+pip install -e .
