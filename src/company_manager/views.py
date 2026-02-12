@@ -184,32 +184,15 @@ class CompanyApp(tk.Tk):
         if path:
             self.path_search.delete(0, tk.END)
             self.path_search.insert(0, path)
-            try:
-                self.manager.load_from_file(path)
-                self.list_companies()
-            except Exception as e: messagebox.showerror("Error", str(e))
-    
+
     def load_file_from_path(self):
-        path = self.path_search.get().strip()
-
-        if not path:
-            messagebox.showwarning("Warning", "Please enter a file path or use Browse.")
-            return
-        
-        if not os.path.isfile(path):
-            messagebox.showerror("File not found", f"The file '{path}' does not exist.")
-
-        valid_extensions = ('.json', '.txt', '.csv')
-        if not path.lower().endswith(valid_extensions):
-            messagebox.showerror("Invalid format", f"Supported formats: {', '.join(valid_extensions)}")
-            return
-        
-        try:
-            self.manager.load_from_file(path)
-            self.list_companies()
-            messagebox.showinfo("Success", f"File loaded successfully!\nTotal companies: {len(self.manager.companies)}")
-        except Exception as e: 
-            messagebox.showerror("Error", f"Could not load file:\n{str(e)}")
+        path = self.path_search.get()
+        if path:
+            try:
+                self.manager.import_file(path)
+                self.list_companies()
+                messagebox.showinfo("Success", "File imported successfully")
+            except Exception as e: messagebox.showerror("Error", str(e))
 
     def list_companies(self, filter_text=""):
         for i in self.tree.get_children(): self.tree.delete(i)
