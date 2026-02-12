@@ -1,0 +1,6 @@
+101|Google|Mountain View|90000
+
+102|Apple|Cupertino|80000
+
+103|Meta|Menlo|70000
+104|Tesla|Austin|60000

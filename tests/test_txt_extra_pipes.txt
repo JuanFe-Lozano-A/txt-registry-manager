@@ -1,0 +1,4 @@
+101|Google|Mountain View|90000
+102|Special|Pipes|In|Name|1000
+103|Too|Many|Pipes|At|End||||
+104|Name|Addr|5000|Ghost|Data

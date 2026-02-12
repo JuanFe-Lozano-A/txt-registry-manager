@@ -1,0 +1,6 @@
+[
+  {"nit": 801, "name": "IntNit", "address": "St", "budget": "900"},
+  {"nit": "802", "name": "ArrayBudget", "address": "St", "budget": [10, 20]},
+  {"nit": "803", "name": "ObjectAddr", "address": {"city": "NY"}, "budget": 50},
+  {"nit": true, "name": "BoolNit", "address": "St", "budget": 1}
+]

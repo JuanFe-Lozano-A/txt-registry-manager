@@ -38,4 +38,48 @@ These files contain perfectly formatted data used to verify that the core import
 * **Expectation:** The data should load instantly, all columns should be populated, and no error messages should appear.
 * **Goal:** Verify that basic read/write permissions and standard parsing logic are intact.
 
+### 2. Robustness & Error-Prone Tests
+These tests deliberately challenge the program's logic to ensure it doesn't crash when encountering "dirty" or unexpected data.
+
+#### **Text File (`.txt`) Edge Cases**
+| Test File | Logic Targeted | Expected Outcome |
+| :--- | :--- | :--- |
+| `test_txt_missing_cols` | `IndexError` prevention. | App skips lines with fewer than 4 parts or shows a warning. |
+| `test_txt_extra_pipes` | Delimiter splitting. | App prioritizes the first 4 columns or handles extra pipes gracefully. |
+| `test_txt_empty_lines` | Iterator robustness. | The `for line in f` loop ignores blank lines without crashing. |
+| `test_txt_bad_budget` | Type casting (`float`). | Triggers a `ValueError` handled by a message box, preventing a crash. |
+| `test_txt_encoding` | UTF-8 Character Map. | Accents (á, é) and special characters (ñ) display correctly in the Treeview. |
+
+#### **CSV File Edge Cases**
+| Test File | Logic Targeted | Expected Outcome |
+| :--- | :--- | :--- |
+| `test_csv_spanish_headers`| Key Mapping logic. | Successfully maps `nombre` to `name` using the `.get()` fallback. |
+| `test_csv_missing_headers` | Header mismatch. | App provides empty strings for missing keys instead of crashing. |
+| `test_csv_quoted_commas` | Complex Parsing. | Names like "Company, Inc." remain one column, not split into two. |
+| `test_csv_trailing_commas` | Column overflow. | Extra empty columns at the end of rows are ignored. |
+| `test_csv_scientific_notation`| Float conversion. | Numbers like `1e5` are correctly converted to `100000.0`. |
+
+#### **JSON File Edge Cases**
+| Test File | Logic Targeted | Expected Outcome |
+| :--- | :--- | :--- |
+| `test_json_missing_keys` | Dictionary `.get()` safety. | Missing fields in an object default to `""` or `0`. |
+| `test_json_wrong_types` | Data Integrity. | If a budget is an `Array` or `Boolean`, the app handles the type error gracefully. |
+| `test_json_corrupted` | Syntax validation. | A `json.JSONDecodeError` is caught and reported via the UI. |
+| `test_json_nulls` | `NoneType` handling. | `null` values in JSON are converted to empty strings for the UI. |
+| `test_json_empty_array` | Zero-state handling. | Loading `[]` clears the Treeview without error. |
+
 ---
+
+### 🛠 How to Run Tests
+
+1. **Launch the Application:**
+
+2. **Importing:**
+   * Click the **"Browse"** button in the File Path section.
+   * Navigate to the `tests/` folder.
+   * Select any of the files listed above.
+3. **Manual Entry:**
+   * Alternatively, copy the path (e.g., `tests/test_csv_1.csv`) into the Path entry box and click **"Import"**.
+4. **Validation:**
+   * Check the terminal console for any caught exceptions.
+   * Verify that the **Treeview** table reflects the data (or remains safe after a failed import).

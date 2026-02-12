@@ -1,0 +1,4 @@
+101|Google|Mountain View|90000
+102|OnlyName|MissingAddress
+103|ShortLine
+104|Partial|Data|77

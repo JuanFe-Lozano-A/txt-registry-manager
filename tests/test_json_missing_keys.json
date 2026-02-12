@@ -1,0 +1,6 @@
+[
+  {"nit": "701", "name": "Minimal"},
+  {"nit": "702", "address": "NoName"},
+  {"budget": 500},
+  {"name": "Full", "nit": "704", "address": "St", "budget": 10}
+]

@@ -1,0 +1,5 @@
+nit,name,address,budget
+501,Clean,Addr,1000,,,
+502,Dirty,Addr,2000,,,
+503,Extra,Addr,3000,,,
+504,Messy,Addr,4000,,,

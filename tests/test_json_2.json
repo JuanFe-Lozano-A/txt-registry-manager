@@ -1,0 +1,6 @@
+[
+  {"nit": "6001", "name": "Abstergo", "address": "Rome", "budget": 450000.00},
+  {"nit": "6002", "name": "Arazas", "address": "Night City", "budget": 8900000.00},
+  {"nit": "6003", "name": "Fontaine Futuristics", "address": "Rapture", "budget": 120000.25},
+  {"nit": "6004", "name": "Vault-Tec", "address": "Washington", "budget": 660000.10}
+]

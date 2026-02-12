@@ -1,0 +1,4 @@
+2001|Wonka Industries|London|67000.00
+2002|Wayne Enterprises|Gotham|12000000.00
+2003|Stark Industries|Malibu|5500000.25
+2004|Acme Corp|Desert Road|12500.80

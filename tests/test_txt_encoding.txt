@@ -1,0 +1,4 @@
+101|Corporación|Bogotá|90000
+102|München_GmbH|München|80000
+103|Cañón_S.A.|España|70000
+104|パーカー|東京|50000

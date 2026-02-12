@@ -1,0 +1,6 @@
+[
+  {"nit": "1001", "name": null, "address": "St", "budget": 500},
+  {"nit": null, "name": "NullNit", "address": "St", "budget": 500},
+  {"nit": "1003", "name": "NullBudget", "address": "St", "budget": null},
+  {"nit": "1004", "name": "NullAddr", "address": null, "budget": 1}
+]

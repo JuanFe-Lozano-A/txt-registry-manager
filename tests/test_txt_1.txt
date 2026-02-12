@@ -1,0 +1,4 @@
+1001|Globex Corp|Springfield|150000.50
+1002|Initech|Houston|45000.00
+1003|Soylent Corp|New York|890000.75
+1004|Hooli|Palo Alto|2500000.00

@@ -1,0 +1,4 @@
+101|Google|Mountain View|90000
+102|BrokeCo|Nowhere|FREE
+103|RichCo|Mars|$1,000,000
+104|NaN_Co|Earth|None

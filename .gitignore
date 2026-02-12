@@ -20,7 +20,15 @@ lib/
 .LSOverride
 
 # --- Project Specific Data ---
+# Ignore all data files in the root and other subfolders
 *.txt
 *.json
 *.csv
+
+# Exceptions: DO NOT ignore these files inside the tests directory
+!tests/*.txt
+!tests/*.json
+!tests/*.csv
+
+# Always keep documentation
 !README.md

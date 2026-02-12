@@ -1,0 +1,6 @@
+[
+  {"nit": "5001", "name": "Cyberdyne Systems", "address": "Los Angeles", "budget": 980000.00},
+  {"nit": "5002", "name": "Tyrell Corp", "address": "Los Angeles", "budget": 1200000.50},
+  {"nit": "5003", "name": "Weyland-Yutani", "address": "Space", "budget": 5000000.00},
+  {"nit": "5004", "name": "UAC", "address": "Mars", "budget": 340000.75}
+]
