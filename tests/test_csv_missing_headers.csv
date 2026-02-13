@@ -1,5 +1,5 @@
-id,label,loc,money
-301,Lost,Island,100
-302,Found,Cave,200
-303,Void,Space,300
-304,Null,Abyss,400
+nit,name,address,budget
+301,Lost,Island,100.0
+302,Found,Cave,200.0
+303,Void,Space,300.0
+304,Null,Abyss,400.0

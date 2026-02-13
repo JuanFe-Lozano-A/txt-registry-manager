@@ -1,5 +1,5 @@
 nit,name,address,budget
-601,NanoCo,Micro,1e-5
-602,GigaCo,Macro,1.5e9
-603,SciCo,Lab,2.2E4
-604,MathCo,Uni,0.0000001
+601,NanoCo,Micro,1e-05
+602,GigaCo,Macro,1500000000.0
+603,SciCo,Lab,22000.0
+604,MathCo,Uni,1e-07
