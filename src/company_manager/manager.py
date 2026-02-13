@@ -73,25 +73,100 @@ class CompanyManager:
         new_data = []
         try:
             if ext == '.json':
-                with open(path, 'r', encoding='utf-8') as f: new_data = json.load(f)
+                try:
+                    with open(path, 'r', encoding='utf-8') as f: new_data = json.load(f)
+                except json.JSONDecodeError as e:
+                    raise Exception(f"Invalid JSON format: {e}. Please check the file syntax.")
             elif ext == '.csv':
                 with open(path, 'r', encoding='utf-8', newline='') as f: new_data = list(csv.DictReader(f))
             else:
                 with open(path, 'r', encoding='utf-8') as f:
                     for line in f:
-                        parts = line.strip().split(DELIMITER)
+                        stripped_line = line.strip()
+                        # Skip empty lines
+                        if not stripped_line:
+                            continue
+                        parts = stripped_line.split(DELIMITER)
+                        # Take only the first 4 parts, skip if fewer than 4
                         if len(parts) >= 4:
                             new_data.append({"nit": parts[0], "name": parts[1], "address": parts[2], "budget": parts[3]})
+            
             self.companies = []
+            skipped_rows = 0
+            
             for comp in new_data:
-                self.companies.append({
-                    "nit": str(comp.get('nit', comp.get('nit', ''))), 
-                    "name": str(comp.get('name', comp.get('nombre', ''))), 
-                    "address": str(comp.get('address', comp.get('direccion', ''))), 
-                    "budget": float(comp.get('budget', comp.get('presupuesto', 0)))
-                })
+                try:
+                    # Try to map headers intelligently for CSV/JSON with different headers
+                    nit = self._extract_field(comp, ['nit', 'id', 'NIT', 'ID'])
+                    name = self._extract_field(comp, ['name', 'nombre', 'NAME', 'NOMBRE', 'label', 'LABEL'])
+                    address = self._extract_field(comp, ['address', 'direccion', 'ADDRESS', 'DIRECCION', 'loc', 'LOC', 'location', 'LOCATION'])
+                    budget = self._extract_field(comp, ['budget', 'presupuesto', 'BUDGET', 'PRESUPUESTO', 'money', 'MONEY'], is_numeric=True)
+                    
+                    # Validate required fields
+                    if not nit or not name or not address:
+                        skipped_rows += 1
+                        continue
+                    
+                    try:
+                        budget = float(budget) if budget else 0.0
+                    except (ValueError, TypeError):
+                        budget = 0.0
+                    
+                    self.companies.append({
+                        "nit": str(nit), 
+                        "name": str(name), 
+                        "address": str(address), 
+                        "budget": budget
+                    })
+                except Exception:
+                    skipped_rows += 1
+                    continue
+            
+            if skipped_rows > 0:
+                print(f"Warning: Skipped {skipped_rows} rows with missing required fields (nit, name, address).")
+            
             self.current_file = path
         except Exception as e: raise Exception(f"Error reading file: {e}")
+    
+    def _extract_field(self, record, field_names, is_numeric=False):
+        """Try to extract a field value from a record using multiple possible field names."""
+        if not isinstance(record, dict):
+            return None
+        
+        for field_name in field_names:
+            value = record.get(field_name)
+            # Skip null/None values and empty strings
+            if value is None or (isinstance(value, str) and not value.strip()):
+                continue
+            
+            # Handle different types
+            if isinstance(value, bool):
+                # Skip boolean values as they're not valid field data
+                continue
+            
+            if isinstance(value, (list, dict)):
+                # Skip complex types (arrays, objects)
+                continue
+            
+            value_str = str(value).strip()
+            if not value_str:
+                continue
+            
+            if is_numeric:
+                try:
+                    # Handle scientific notation, currency formats, etc.
+                    # Remove common currency symbols and thousands separators
+                    cleaned = value_str.replace('$', '').replace(',', '').strip()
+                    # Skip non-numeric strings like "FREE", "None", "NaN"
+                    if cleaned.upper() in ('FREE', 'NONE', 'NAN', 'NULL', 'N/A', 'NA'):
+                        continue
+                    return float(cleaned)
+                except (ValueError, TypeError):
+                    continue
+            else:
+                return value_str
+        
+        return None
 
     def export_txt(self, path):
         with open(path, "w", encoding="utf-8") as f:
